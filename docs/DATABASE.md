@@ -220,7 +220,7 @@ WHERE is_active = TRUE;
 ## Data Relationships
 
 ### Entity Relationships
-```
+```sql
 llm_requests (1) ←→ (0..n) alerts
 detection_rules (1) ←→ (0..n) alert_rules
 users (1) ←→ (0..n) alerts (acknowledged_by, resolved_by)
@@ -232,8 +232,12 @@ user_sessions (1) ←→ (0..n) llm_requests (via src_ip + time range)
 ALTER TABLE alerts ADD CONSTRAINT fk_alerts_request 
 FOREIGN KEY (related_request_id) REFERENCES llm_requests(id);
 
-ALTER TABLE alert_rules ADD CONSTRAINT fk_alert_rules_detection_rules
-FOREIGN KEY (detection_rule_ids) REFERENCES detection_rules(id);
+-- Note: detection_rule_ids is a UUID[] array - FK constraints managed at application layer
+-- For proper referential integrity, consider using a junction table:
+-- CREATE TABLE alert_rules_detection_rules (
+--   alert_rule_id UUID REFERENCES alert_rules(id),
+--   detection_rule_id UUID REFERENCES detection_rules(id)
+-- );
 ```
 
 ## Data Retention and Cleanup
@@ -262,7 +266,10 @@ $$ LANGUAGE plpgsql;
 ```
 
 ### Scheduled Cleanup
+**Prerequisites**: Requires `pg_cron` extension:
 ```sql
+CREATE EXTENSION IF NOT EXISTS pg_cron;
+
 -- Run cleanup monthly
 SELECT cron.schedule('cleanup-old-data', '0 2 1 * *', 'SELECT cleanup_old_data();');
 ```

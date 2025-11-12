@@ -70,9 +70,9 @@ Instead of deleting users (which removes audit trails):
 
 ### Password Requirements
 - **Production**: Minimum 8 characters (strongly recommend 12+)
+- **Complexity**: Mix of uppercase, lowercase, digits, and special characters
 - **Development**: Minimum 6 characters (for testing only)
 - Use unique passwords for each account
-- Implement password complexity rules in production
 - Regular password rotation for admin accounts
 
 ### Access Control
@@ -84,8 +84,9 @@ Instead of deleting users (which removes audit trails):
 ### Session Management
 - Sessions expire after inactivity
 - Users are logged out when role changes
-- Multiple concurrent sessions are allowed
+- **Multiple concurrent sessions allowed** (monitor for suspicious activity)
 - JWT tokens are used for authentication
+- **Security Note**: Monitor concurrent sessions from different IPs/locations
 
 ## API Access
 
@@ -119,8 +120,8 @@ curl -X GET http://localhost:8000/api/requests \
 ### Forgot Password
 - Contact an Admin user for password reset
 - **Known Limitation**: No self-service password recovery currently available
-- **Enhancement Needed**: Email-based or security-question recovery system
-- This is a significant usability gap that should be prioritized for future releases
+- **Enhancement Planned**: Email-based recovery system (target: v1.2.0)
+- This is a significant usability gap prioritized for Q2 2024
 
 ## Audit and Compliance
 

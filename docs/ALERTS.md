@@ -141,6 +141,12 @@ Each alert includes:
 - Investigation notes and actions taken
 - Resolution status and timeline
 
+### Alert Lifecycle and Retention
+- **New alerts**: Retained indefinitely until acknowledged/resolved
+- **Resolved alerts**: Automatically cleaned up after 3 months
+- **Archive function**: Removes from active view but preserves history
+- **Manual cleanup**: Bulk delete resolved alerts older than specified date
+
 ## Configuration Examples
 
 ### High-Risk Prompt Alert
@@ -201,10 +207,10 @@ Each alert includes:
 - Add context-aware filtering
 
 ### Alert Fatigue Prevention
-- Prioritize critical alerts
-- Group related alerts together
-- Implement escalation policies
-- Regular review and tuning
+- **Priority thresholds**: Critical (>80 risk), High (60-79), Medium (40-59)
+- **Grouping rules**: Combine alerts from same IP within 5-minute window
+- **Suppression**: Silence duplicate alerts for 1 hour after first occurrence
+- **Escalation**: Auto-escalate unacknowledged critical alerts after 15 minutes
 
 ### Performance Optimization
 - Limit alert frequency per rule

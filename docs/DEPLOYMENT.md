@@ -183,7 +183,7 @@ spec:
     spec:
       containers:
       - name: api
-        image: flagwise/api:latest
+        image: flagwise/api:v1.0.0
         ports:
         - containerPort: 8000
         envFrom:
@@ -245,7 +245,7 @@ spec:
     spec:
       containers:
       - name: web
-        image: flagwise/web:latest
+        image: flagwise/web:v1.0.0
         ports:
         - containerPort: 80
         resources:
@@ -500,7 +500,7 @@ kubectl rollout undo deployment/flagwise-api -n flagwise
 -- Weekly maintenance tasks
 VACUUM ANALYZE;
 REINDEX DATABASE flagwise;
-UPDATE pg_stat_statements_reset();
+SELECT pg_stat_statements_reset();
 ```
 
 ### Log Rotation
