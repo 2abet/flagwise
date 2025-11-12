@@ -79,7 +79,7 @@ FlagWise includes pre-configured rules for common security patterns:
 | Rule Name | Type | Pattern | Points | Description |
 |-----------|------|---------|--------|-------------|
 | Critical Keywords | keyword | password\|secret\|api_key | 50 | Sensitive authentication data |
-| Email Addresses | regex | `\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z\|a-z]{2,}\b` | 30 | Personal identifiable information |
+| Email Addresses | regex | `\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b` | 30 | Personal identifiable information |
 | Credit Cards | regex | `\b(?:\d{4}[-\s]?){3}\d{4}\b` | 60 | Financial data patterns |
 | IP Addresses | regex | `\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b` | 20 | Network infrastructure data |
 | Phone Numbers | regex | `\b\d{3}-\d{3}-\d{4}\b` | 15 | Personal contact information |

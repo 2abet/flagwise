@@ -115,6 +115,8 @@ volumes:
 ```
 
 ### Environment Configuration
+⚠️ **Security Warning**: Do NOT commit `.env.prod` to version control. For production, use Kubernetes Secrets, environment variable injection from secure vaults (AWS Secrets Manager, HashiCorp Vault), or container orchestration platform secrets management.
+
 Create `.env.prod`:
 
 ```bash
@@ -551,3 +553,11 @@ kubectl exec -it postgres-pod -- psql -c "SELECT * FROM pg_stat_activity;"
 - [ ] Access logs monitored
 - [ ] Backup encryption enabled
 - [ ] Vulnerability scanning automated
+- [ ] Rate limiting configured
+- [ ] CORS properly restricted
+- [ ] Database connection pooling configured
+- [ ] SQL injection prevention verified
+- [ ] Security headers configured (CSP, X-Frame-Options, etc.)
+- [ ] Regular security scanning/vulnerability assessments scheduled
+- [ ] Incident response plan documented
+- [ ] Access control audits scheduled

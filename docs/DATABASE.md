@@ -38,8 +38,8 @@ CREATE TABLE llm_requests (
 - `src_ip`: Internal IP address of requestor
 - `provider`: openai, anthropic, etc.
 - `model`: gpt-4, claude-3, etc.
-- `prompt`: User prompt (encrypted in production)
-- `response`: LLM response (encrypted in production)
+- `prompt`: User prompt (currently plaintext, encryption planned)
+- `response`: LLM response (currently plaintext, encryption planned)
 - `risk_score`: 0-100 calculated risk score
 - `is_flagged`: Whether request triggered detection rules
 - `flag_reason`: Comma-separated list of triggered rule names
@@ -238,16 +238,18 @@ FOREIGN KEY (detection_rule_ids) REFERENCES detection_rules(id);
 
 ## Data Retention and Cleanup
 
+**Note**: Default retention periods are 6 months for requests and 3 months for resolved alerts. Adjust these values based on your compliance requirements (GDPR, SOC2, etc.) and organizational data retention policies.
+
 ### Automatic Cleanup Function
 ```sql
 CREATE OR REPLACE FUNCTION cleanup_old_data()
 RETURNS void AS $$
 BEGIN
-    -- Remove requests older than 6 months
+    -- Remove requests older than 6 months (adjust as needed for compliance)
     DELETE FROM llm_requests 
     WHERE created_at < NOW() - INTERVAL '6 months';
     
-    -- Remove resolved alerts older than 3 months
+    -- Remove resolved alerts older than 3 months (adjust as needed for compliance)
     DELETE FROM alerts 
     WHERE status = 'resolved' 
     AND resolved_at < NOW() - INTERVAL '3 months';

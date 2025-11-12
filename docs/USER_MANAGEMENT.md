@@ -32,7 +32,7 @@ FlagWise supports role-based access control with two user types: **Admin** and *
 2. Click **Add User**
 3. Fill in user details:
    - Username (3-50 characters, alphanumeric + hyphens/underscores)
-   - Password (minimum 6 characters)
+   - Password (minimum 8 characters recommended for production)
    - Role (Admin or Read-only)
    - First/Last name (optional)
 4. Click **Create User**
@@ -69,9 +69,10 @@ Instead of deleting users (which removes audit trails):
 ## Security Best Practices
 
 ### Password Requirements
-- Minimum 6 characters (recommend 12+)
+- **Production**: Minimum 8 characters (strongly recommend 12+)
+- **Development**: Minimum 6 characters (for testing only)
 - Use unique passwords for each account
-- Consider implementing password complexity rules
+- Implement password complexity rules in production
 - Regular password rotation for admin accounts
 
 ### Access Control
@@ -96,6 +97,7 @@ curl -X POST http://localhost:8000/auth/login \
   -H "Content-Type: application/json" \
   -d '{"username": "your_username", "password": "your_password"}'
 
+# Note: Replace YOUR_ACCESS_TOKEN with the actual token from login response
 # Use token in subsequent requests
 curl -X GET http://localhost:8000/api/requests \
   -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
@@ -116,8 +118,9 @@ curl -X GET http://localhost:8000/api/requests \
 
 ### Forgot Password
 - Contact an Admin user for password reset
-- No self-service password recovery currently available
-- Consider implementing email-based recovery
+- **Known Limitation**: No self-service password recovery currently available
+- **Enhancement Needed**: Email-based or security-question recovery system
+- This is a significant usability gap that should be prioritized for future releases
 
 ## Audit and Compliance
 

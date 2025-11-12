@@ -48,6 +48,8 @@ Send alerts to Slack channels for team collaboration.
 }
 ```
 
+**Note**: For user mentions, use Slack user IDs in the format `<@USER_ID>` (e.g., `<@U1234567890>`) rather than @username.
+
 ### Email Notifications
 *Coming Soon* - Email integration for alert delivery.
 
@@ -152,7 +154,7 @@ Each alert includes:
     "slack": {
       "enabled": true,
       "channel": "#security-alerts",
-      "mention_users": ["@security-team"]
+      "mention_users": ["<@U1234567890>", "<@U0987654321>"]
     }
   }
 }
@@ -301,9 +303,12 @@ Content-Type: application/json
 ```
 
 ### Test Notification Channel
+**Note**: Requires Admin authentication to prevent unauthorized testing of arbitrary endpoints.
+
 ```bash
 POST /api/notifications/test
 Content-Type: application/json
+Authorization: Bearer ADMIN_TOKEN
 
 {
   "channel_type": "slack",
